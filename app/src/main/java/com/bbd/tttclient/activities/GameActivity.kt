@@ -46,8 +46,11 @@ class GameActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        NetworkDataManager.setConnectionStatusValueToIdle()
-        ConnectionManager.outRoom()
+        if(intent.getStringExtra("game-mode") == "multiplayer") {
+
+            NetworkDataManager.setConnectionStatusValueToIdle()
+            ConnectionManager.outRoom()
+        }
     }
 
 
