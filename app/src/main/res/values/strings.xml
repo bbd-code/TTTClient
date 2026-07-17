@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">TicTacToe</string>
+    <string name="playButtonDes">PlayButton</string>
+    <string name="multiplayerButtonDes">MultiplayerButton</string>
+    <string name="exitButtonDes">ExitButton</string>
+    <string name="connectionOffline">Cannot connect to server</string>
+    <string name="connectionConnecting">Connecting</string>
+    <string name="connectionOnline">Established</string>
+
+
+
+    <string name="needWait">Waiting for opponent…</string>
+    <string name="yourSideCross">Your side is cross</string>
+    <string name="yourSideZero">Your side is zero</string>
+    <string name="notYourTurn">No your turn</string>
+
+
+    <string name="pvp">1 vs 1</string>
+    <string name="pve">Player vs🤖</string>
+    <string name="choose">Choose</string>
+
+    <string name="chooseBot">Choose 🤖</string>
+    <string name="easyBot">Easy 🍃</string>
+    <string name="mediumBot">Medium ⚡</string>
+    <string name="hardBot">Hard 😈</string>
+
+    <string name="cell">cell</string>
+    <string name="crossWin">Cross win!</string>
+    <string name="zeroWin">Zero win!</string>
+    <string name="crossTurn">Cross turn</string>
+    <string name="zeroTurn">Zero turn</string>
+    <string name="draw">Draw</string>
+    <string name="restart">Restart</string>
+</resources>

@@ -1,0 +1,2 @@
+-keep class com.bbd.tttclient.networking.models.RoomData { *; }
+-keep class com.bbd.tttclient.networking.models.** { *; }

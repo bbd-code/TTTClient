@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TicTacToe</string>
+    <string name="exitButtonDes">-</string>
+    <string name="connectionOffline">Не удалось подключиться к серверу</string>
+    <string name="playButtonDes">-</string>
+    <string name="multiplayerButtonDes">-</string>
+    <string name="connectionConnecting">Подключение</string>
+    <string name="connectionOnline">Соединение установлено</string>
+    <string name="start">Играйте!</string>
+    <string name="pve">Против бота🤖</string>
+    <string name="choose">Выберите</string>
+    <string name="hardBot">Сложный 😈</string>
+    <string name="cell">клетка</string>
+    <string name="crossWin">Крестики выиграли!</string>
+    <string name="zeroWin">Нолики выиграли!</string>
+    <string name="zeroTurn">Нолики ходят</string>
+    <string name="draw">Ничья</string>
+    <string name="restart">Перезагрузить</string>
+    <string name="crossTurn">Крестики ходят</string>
+    <string name="needWait">Ожидание соперника</string>
+    <string name="yourSideZero">Вы играете за нолики</string>
+    <string name="notYourTurn">Не ваш ход</string>
+    <string name="pvp">1 на 1</string>
+    <string name="chooseBot">Выберите 🤖</string>
+    <string name="easyBot">Легкий 🍃</string>
+    <string name="mediumBot">Средний ⚡</string>
+    <string name="yourSideCross">Вы играете за крестики</string>
+</resources>
