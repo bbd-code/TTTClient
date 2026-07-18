@@ -18,7 +18,7 @@ import com.bbd.tttclient.networking.models.RoomData
 class LobbyActivity : AppCompatActivity() {
 
 
-    private lateinit var roomsLayout: LinearLayout;
+    private lateinit var roomsLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class LobbyActivity : AppCompatActivity() {
 
 
 
-        roomsLayout = findViewById(R.id.roomsLayout);
+        roomsLayout = findViewById(R.id.roomsLayout)
 
         ConnectionManager.connect()
 
@@ -44,7 +44,7 @@ class LobbyActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-
+        ConnectionManager.getRooms()
 
     }
 
@@ -84,7 +84,7 @@ class LobbyActivity : AppCompatActivity() {
 
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("need-wait",needWait)
-        intent.putExtra("my-side", mySide);
+        intent.putExtra("my-side", mySide)
         intent.putExtra("game-mode", "multiplayer")
 
         startActivity(intent)
@@ -100,7 +100,7 @@ class LobbyActivity : AppCompatActivity() {
             val roomView = RoomView(this)
             roomView.setRoomName(roomData.roomName)
             roomView.setConnections(roomData.connections)
-            roomView.setRoomId(roomData.id);
+            roomView.setRoomId(roomData.id)
             roomsLayout.addView(roomView)
             roomView.setOnClickListener {
                 ConnectionManager.inRoom(roomData.id)
