@@ -48,6 +48,14 @@ TTTClientSession::TTTClientSession(std::unique_ptr<JNICallback> callback, const 
     {
         room_changed(json);
     };
+    command_handlers["opponent-leave"] = [this](const json& json) -> void
+    {
+        opponent_leave(json);
+    };
+    command_handlers["must-leave-from-room"] = [this](const json& json) -> void
+    {
+        must_leave_from_room(json);
+    };
 
 }
 
@@ -447,6 +455,19 @@ void TTTClientSession::room_changed(const json &json) {
     else{
         callback->on_room_changed(json["data"]["changed-room-data"].value("id", -1), json["data"]["changed-room-data"].value("new-connections", -1));
     }
+
+}
+
+void TTTClientSession::opponent_leave(const json &json) {
+
+    callback->on_opponent_leave(json["data"].value("need-wait", false));
+
+}
+
+void TTTClientSession::must_leave_from_room(const json &json) {
+
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    callback->on_must_leave_from_room();
 
 }
 

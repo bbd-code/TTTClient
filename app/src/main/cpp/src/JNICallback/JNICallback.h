@@ -24,6 +24,8 @@ public:
     void on_turn_response_success(int cell_index, const std::string& cell_side, const std::string& current_game_state, std::tuple<int, int, int>* win_comb);
     void on_turn_response_error(const std::string& game_error);
     void on_room_changed(size_t room_id, int new_connections);
+    void on_opponent_leave(bool need_wait);
+    void on_must_leave_from_room();
     void on_disconnected();
     void on_error(const std::string& message);
 
@@ -39,6 +41,8 @@ private:
     jmethodID on_turn_method_success;
     jmethodID on_turn_method_error;
     jmethodID on_room_changed_connections;
+    jmethodID on_opponent_leave_method;
+    jmethodID on_must_leave_from_room_method;
     jmethodID on_disconnected_method;
     jmethodID on_error_method;
 

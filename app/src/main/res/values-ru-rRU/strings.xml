@@ -7,7 +7,6 @@
     <string name="multiplayerButtonDes">-</string>
     <string name="connectionConnecting">Подключение</string>
     <string name="connectionOnline">Соединение установлено</string>
-    <string name="start">Играйте!</string>
     <string name="pve">Против бота🤖</string>
     <string name="choose">Выберите</string>
     <string name="hardBot">Сложный 😈</string>
@@ -21,9 +20,11 @@
     <string name="needWait">Ожидание соперника</string>
     <string name="yourSideZero">Вы играете за нолики</string>
     <string name="notYourTurn">Не ваш ход</string>
+    <string name="mustLeaveFromRoom">Вы будете выгнаны из комнаты. Комната перезагрузится</string>
     <string name="pvp">1 на 1</string>
     <string name="chooseBot">Выберите 🤖</string>
     <string name="easyBot">Легкий 🍃</string>
     <string name="mediumBot">Средний ⚡</string>
     <string name="yourSideCross">Вы играете за крестики</string>
-</resources>
+    <string name="opponentLeave">Ваш соперник вышел</string>
+    </resources>

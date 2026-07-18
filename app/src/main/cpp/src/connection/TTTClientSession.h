@@ -96,6 +96,8 @@ private:
     void start_game(const json& json);
     void turn(const json& json);
     void room_changed(const json& json);
+    void opponent_leave(const json& json);
+    void must_leave_from_room(const json& json);
 
 private:
 

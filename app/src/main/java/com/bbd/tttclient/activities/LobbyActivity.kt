@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 
@@ -12,7 +11,7 @@ import com.bbd.tttclient.R
 import com.bbd.tttclient.custom_views.RoomView
 import com.bbd.tttclient.networking.managers.ConnectionManager
 import com.bbd.tttclient.networking.managers.NetworkDataManager
-import com.bbd.tttclient.networking.models.ConnectionStatus
+import com.bbd.tttclient.networking.models.ConnectionBridge
 import com.bbd.tttclient.networking.models.RoomData
 
 
@@ -28,7 +27,7 @@ class LobbyActivity : AppCompatActivity() {
 
 
 
-        NetworkDataManager.connectionStatus.observe(this){  connectionStatus ->
+        NetworkDataManager.connectionBridge.observe(this){ connectionStatus ->
             handleConnectionStatus(connectionStatus)
 
         }
@@ -55,23 +54,23 @@ class LobbyActivity : AppCompatActivity() {
         ConnectionManager.disconnect()
     }
 
-    private fun handleConnectionStatus(connectionStatus: ConnectionStatus){
-        Log.w("LobbyActivity", "hash-code: ${connectionStatus.hashCode()} with timestamp ${connectionStatus.timeStamp}🔄 handleConnectionStatus called with: $connectionStatus")
-        when(connectionStatus){
-            is ConnectionStatus.ConnectedToServer -> { showConnected() }
-            is ConnectionStatus.GetRooms -> {
-                showRooms(connectionStatus.roomsData)
+    private fun handleConnectionStatus(connectionBridge: ConnectionBridge){
+        Log.w("LobbyActivity", "hash-code: ${connectionBridge.hashCode()} with timestamp ${connectionBridge.timeStamp}🔄 handleConnectionStatus called with: $connectionBridge")
+        when(connectionBridge){
+            is ConnectionBridge.ConnectedToServer -> { showConnected() }
+            is ConnectionBridge.GetRooms -> {
+                showRooms(connectionBridge.roomsData)
             }
-            is ConnectionStatus.ConnectedToRoom -> {
-                showConnectedToRoom(connectionStatus.needWait, connectionStatus.mySide)
+            is ConnectionBridge.ConnectedToRoom -> {
+                showConnectedToRoom(connectionBridge.needWait, connectionBridge.mySide)
             }
-            is ConnectionStatus.RoomChanged -> {
-                showChangedRoom(connectionStatus.roomId, connectionStatus.newConnections)
+            is ConnectionBridge.RoomChanged -> {
+                showChangedRoom(connectionBridge.roomId, connectionBridge.newConnections)
             }
 
-            is ConnectionStatus.Error -> {
-                Log.e("LobbyActivity", "❌ Showing error toast: ${connectionStatus.message}")
-                showError(connectionStatus.message)
+            is ConnectionBridge.Error -> {
+                Log.e("LobbyActivity", "❌ Showing error toast: ${connectionBridge.message}")
+                showError(connectionBridge.message)
             }
             else -> { return }
         }

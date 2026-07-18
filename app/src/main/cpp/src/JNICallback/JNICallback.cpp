@@ -28,6 +28,8 @@ JNICallback::JNICallback(JavaVM *jvm, jobject callback, jobject jclass_loader) :
     on_turn_method_success = env->GetMethodID(callback_class, "onTurn", "(ILjava/lang/String;Ljava/lang/String;[I)V");
     on_turn_method_error = env->GetMethodID(callback_class, "onTurn", "(Ljava/lang/String;)V");
     on_room_changed_connections = env->GetMethodID(callback_class,"onRoomChanged", "(JI)V");
+    on_opponent_leave_method = env->GetMethodID(callback_class, "onOpponentLeave", "(Z)V");
+    on_must_leave_from_room_method = env->GetMethodID(callback_class, "onMustLeaveFromRoom", "()V");
     on_disconnected_method = env->GetMethodID(callback_class, "onDisconnected", "()V");
     on_error_method = env->GetMethodID(callback_class, "onError", "(Ljava/lang/String;)V");
 
@@ -225,6 +227,31 @@ void JNICallback::on_room_changed(size_t room_id, int new_connections) {
 
 
     jvm->DetachCurrentThread();
+
+}
+
+void JNICallback::on_opponent_leave(bool need_wait) {
+
+    JNIEnv* env;
+
+    jvm->AttachCurrentThread(&env, nullptr);
+
+    env->CallVoidMethod(callback_obj, on_opponent_leave_method, static_cast<jboolean>(need_wait));
+
+    jvm->DetachCurrentThread();
+
+}
+
+void JNICallback::on_must_leave_from_room() {
+
+    JNIEnv* env;
+
+    jvm->AttachCurrentThread(&env, nullptr);
+
+    env->CallVoidMethod(callback_obj, on_must_leave_from_room_method);
+
+    jvm->DetachCurrentThread();
+
 
 }
 

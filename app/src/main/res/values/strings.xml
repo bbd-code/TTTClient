@@ -13,6 +13,8 @@
     <string name="yourSideCross">Your side is cross</string>
     <string name="yourSideZero">Your side is zero</string>
     <string name="notYourTurn">No your turn</string>
+    <string name="opponentLeave">Your opponent leave</string>
+    <string name="mustLeaveFromRoom">You been kicked from room. Room restarted</string>
 
 
     <string name="pvp">1 vs 1</string>

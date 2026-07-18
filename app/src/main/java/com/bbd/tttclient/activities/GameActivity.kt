@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.size
 import androidx.gridlayout.widget.GridLayout
-import androidx.transition.Visibility
 
 import com.bbd.tttclient.R
 import com.bbd.tttclient.connectors.BotGameConnector
@@ -20,7 +19,7 @@ import com.bbd.tttclient.connectors.GameConnector
 import com.bbd.tttclient.connectors.LocalGameConnector
 import com.bbd.tttclient.networking.managers.ConnectionManager
 import com.bbd.tttclient.networking.managers.NetworkDataManager
-import com.bbd.tttclient.networking.models.ConnectionStatus
+import com.bbd.tttclient.networking.models.ConnectionBridge
 import com.bbd.tttclient.networking.models.GameData
 
 class GameActivity : AppCompatActivity() {
@@ -76,7 +75,7 @@ class GameActivity : AppCompatActivity() {
                     Toast.makeText(this, R.string.yourSideZero , Toast.LENGTH_LONG).show()
 
 
-                NetworkDataManager.connectionStatus.observe(this) { connectionStatus ->
+                NetworkDataManager.connectionBridge.observe(this) { connectionStatus ->
                     handleConnectionStatus(connectionStatus)
                 }
 
@@ -135,19 +134,31 @@ class GameActivity : AppCompatActivity() {
         allButtonsListenersToNull()
     }
 
+
+    fun showOpponentLeave(needWait: Boolean){
+
+        Toast.makeText(this, R.string.opponentLeave, Toast.LENGTH_LONG).show()
+        if(needWait) stateTextView.setText(R.string.needWait)
+        allButtonsListenersToNull()
+    }
+
+    fun showMustLeaveFromRoom(){
+        Toast.makeText(this, R.string.mustLeaveFromRoom, Toast.LENGTH_LONG).show()
+        finish()
+    }
     private fun allButtonsListenersToNull(){
         for (i in 0 until uiCellsGridLayout.size){
             (uiCellsGridLayout.getChildAt(i) as ImageButton).setOnClickListener(null)
         }
     }
 
-    private fun handleConnectionStatus(connectionStatus: ConnectionStatus){
-        Log.w("GameActivity", "hash-code: ${connectionStatus.hashCode()} with timestamp ${connectionStatus.timeStamp}🔄 handleConnectionStatus called with: $connectionStatus")
-        when(connectionStatus){
+    private fun handleConnectionStatus(connectionBridge: ConnectionBridge){
+        Log.w("GameActivity", "hash-code: ${connectionBridge.hashCode()} with timestamp ${connectionBridge.timeStamp}🔄 handleConnectionStatus called with: $connectionBridge")
+        when(connectionBridge){
 
-            is ConnectionStatus.StartGame -> {
+            is ConnectionBridge.StartGame -> {
 
-                stateTextView.setText(if(connectionStatus.currentSide == "Cross") R.string.crossTurn else R.string.zeroTurn)
+                stateTextView.setText(if(connectionBridge.currentSide == "Cross") R.string.crossTurn else R.string.zeroTurn)
 
                 for(i in 0 until uiCellsGridLayout.childCount){
                     val button = uiCellsGridLayout.getChildAt(i) as ImageButton
@@ -160,18 +171,23 @@ class GameActivity : AppCompatActivity() {
                 }
 
             }
-            is ConnectionStatus.TurnSuccess -> {
-                handleTurnAndShow(connectionStatus.gameData)
+            is ConnectionBridge.TurnSuccess -> {
+                handleTurnAndShow(connectionBridge.gameData)
             }
-            is ConnectionStatus.TurnError -> {
+            is ConnectionBridge.TurnError -> {
                 Toast.makeText(this, getString(R.string.notYourTurn),Toast.LENGTH_LONG).show()
             }
-
-            is ConnectionStatus.Error -> {
-                Log.e("GameActivity", "❌ Showing error toast: ${connectionStatus.message}")
-                showError(connectionStatus.message)
+            is ConnectionBridge.OpponentLeave -> {
+                showOpponentLeave(connectionBridge.needWait)
             }
-            is ConnectionStatus.Idle -> { return }
+            is ConnectionBridge.MustLeaveFromRoom -> {
+                showMustLeaveFromRoom()
+            }
+            is ConnectionBridge.Error -> {
+                Log.e("GameActivity", "❌ Showing error toast: ${connectionBridge.message}")
+                showError(connectionBridge.message)
+            }
+            is ConnectionBridge.Idle -> { return }
             else -> {}
         }
     }
