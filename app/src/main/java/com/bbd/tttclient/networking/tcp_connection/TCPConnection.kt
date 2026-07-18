@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.RequiresApi
 import com.bbd.tttclient.networking.managers.NetworkDataManager
-import com.bbd.tttclient.networking.models.ConnectionStatus
+import com.bbd.tttclient.networking.models.ConnectionBridge
 import com.bbd.tttclient.networking.models.GameData
 import com.bbd.tttclient.networking.models.RoomData
 
@@ -84,7 +84,7 @@ class TCPConnection {
 
                mainHandler.post {
 
-                    NetworkDataManager.updateConnectionStatus(ConnectionStatus.ConnectedToServer)
+                    NetworkDataManager.updateConnectionStatus(ConnectionBridge.ConnectedToServer)
                }
 
            }
@@ -93,7 +93,7 @@ class TCPConnection {
 
                mainHandler.post {
 
-                   NetworkDataManager.updateConnectionStatus(ConnectionStatus.GetRooms(roomsList))
+                   NetworkDataManager.updateConnectionStatus(ConnectionBridge.GetRooms(roomsList))
 
                }
 
@@ -103,7 +103,7 @@ class TCPConnection {
            override fun onInRoom(needWait: Boolean, mySide: String) {
                mainHandler.post {
                    NetworkDataManager.updateConnectionStatus(
-                       ConnectionStatus.ConnectedToRoom(needWait, mySide))
+                       ConnectionBridge.ConnectedToRoom(needWait, mySide))
                }
            }
 
@@ -121,7 +121,7 @@ class TCPConnection {
 
                mainHandler.post {
 
-                   NetworkDataManager.updateConnectionStatus(ConnectionStatus.TurnSuccess(GameData(index, cellSide, currentGameState,
+                   NetworkDataManager.updateConnectionStatus(ConnectionBridge.TurnSuccess(GameData(index, cellSide, currentGameState,
                        if(winComb != null) Triple(winComb[0], winComb[1], winComb[2]) else null
                    )))
 
@@ -130,13 +130,13 @@ class TCPConnection {
 
            override fun onTurn(turnError: String) {
                mainHandler.post {
-                   NetworkDataManager.updateConnectionStatus(ConnectionStatus.TurnError(turnError))
+                   NetworkDataManager.updateConnectionStatus(ConnectionBridge.TurnError(turnError))
                }
            }
 
            override fun onRoomChanged(roomId: Long, newConnections: Int) {
                mainHandler.post {
-                   NetworkDataManager.updateConnectionStatus(ConnectionStatus.RoomChanged(roomId, newConnections))
+                   NetworkDataManager.updateConnectionStatus(ConnectionBridge.RoomChanged(roomId, newConnections))
                }
            }
 
@@ -144,7 +144,7 @@ class TCPConnection {
            override fun onStartGame(currentSide: String) {
                mainHandler.post {
                    NetworkDataManager.updateConnectionStatus(
-                       ConnectionStatus.StartGame(currentSide))
+                       ConnectionBridge.StartGame(currentSide))
                }
            }
 
@@ -159,7 +159,7 @@ class TCPConnection {
                connected = false
 
                mainHandler.post {
-                    NetworkDataManager.updateConnectionStatus(ConnectionStatus.Error(error))
+                    NetworkDataManager.updateConnectionStatus(ConnectionBridge.Error(error))
                }
 
            }

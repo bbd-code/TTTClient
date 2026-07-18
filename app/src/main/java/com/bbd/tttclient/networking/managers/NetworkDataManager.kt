@@ -3,11 +3,7 @@ package com.bbd.tttclient.networking.managers
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.distinctUntilChanged
-import com.bbd.tttclient.networking.models.ConnectionStatus
-import com.bbd.tttclient.networking.models.GameData
-import com.bbd.tttclient.networking.models.RoomData
-import kotlin.time.Clock
+import com.bbd.tttclient.networking.models.ConnectionBridge
 
 
 object NetworkDataManager {
@@ -16,16 +12,16 @@ object NetworkDataManager {
 
 
 
-    private val mutableConnectionStatus = MutableLiveData<ConnectionStatus>()
-    val connectionStatus: LiveData<ConnectionStatus> = mutableConnectionStatus
+    private val mutableConnectionBridge = MutableLiveData<ConnectionBridge>()
+    val connectionBridge: LiveData<ConnectionBridge> = mutableConnectionBridge
 
-    fun updateConnectionStatus(receivedConnectionStatus: ConnectionStatus){
-        Log.w( "NetworkDataManager", "updateConnectionStatus called: $receivedConnectionStatus" )
-        mutableConnectionStatus.postValue(receivedConnectionStatus)
+    fun updateConnectionStatus(receivedConnectionBridge: ConnectionBridge){
+        Log.w( "NetworkDataManager", "updateConnectionStatus called: $receivedConnectionBridge" )
+        mutableConnectionBridge.postValue(receivedConnectionBridge)
     }
 
     fun setConnectionStatusValueToIdle(){
-        mutableConnectionStatus.postValue(ConnectionStatus.Idle)
+        mutableConnectionBridge.postValue(ConnectionBridge.Idle)
     }
 
 
