@@ -190,8 +190,8 @@ class TCPConnection {
     }
 
     fun getRooms(){
-
-        nativeGetRooms()
+        if(isConnected())
+            nativeGetRooms()
     }
 
     fun inRoom(roomId: Long){

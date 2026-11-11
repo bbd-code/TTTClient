@@ -22,8 +22,8 @@ import com.bbd.tttclient.networking.managers.NetworkDataManager
 import com.bbd.tttclient.networking.models.ConnectionBridge
 import com.bbd.tttclient.networking.models.GameData
 
-class GameActivity : AppCompatActivity() {
 
+class GameActivity : AppCompatActivity() {
 
 
     private lateinit var uiCellsGridLayout : GridLayout
@@ -44,9 +44,12 @@ class GameActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        if(intent.getStringExtra("game-mode") == "multiplayer") {
 
-        NetworkDataManager.setConnectionStatusValueToIdle()
-        ConnectionManager.outRoom()
+            NetworkDataManager.setConnectionStatusValueToIdle()
+            ConnectionManager.outRoom()
+
+        }
     }
 
 

@@ -15,8 +15,12 @@ class MultiplayerConnector : GameConnector {
 
         // 10.198.68.237
         // 192.168.0.5
+        // 192.168.8.5
+        //172.17.197.237
+        //10.0.2.15
+        //195.208.120.166
         if(!tcpConnection.isConnected())
-            tcpConnection.connect("192.168.0.3", 12345)
+            tcpConnection.connect("195.208.120.166", 12345)
 
     }
 
