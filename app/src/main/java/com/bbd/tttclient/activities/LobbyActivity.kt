@@ -51,6 +51,7 @@ class LobbyActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
         NetworkDataManager.setConnectionStatusValueToIdle()
         ConnectionManager.disconnect()
     }
